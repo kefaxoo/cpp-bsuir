@@ -1,0 +1,9 @@
+.DS_Store
+
+/RELEASES/*.exe
+
+._*.*
+
+tempCodeRunnerFile
+
+tempCodeRunnerFile.cpp
