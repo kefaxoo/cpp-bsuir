@@ -37,7 +37,7 @@ int *Replace (int *array, int size) {
         if (i >= 0 && i < size)
             break;
     }
-    array[i] = n;
+    array[i - 1] = n;
     return array;
 }
 
