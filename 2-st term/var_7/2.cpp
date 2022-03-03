@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
@@ -36,36 +37,41 @@ void manualInput (int count) {
 }
 
 void getInterval (int &begin, int &end) {
-    begin = -1;
-    end = -1;
-    while (begin < 0) {
-        cout << endl << "Введите начало координат: ";
-        cin >> begin;
-    }
+    cout << endl << "Введите начало промежутка рандома: ";
+    cin >> begin;
 
-    while (end < 0) {
-        cout << endl << "Введите конец координат: ";
-        cin >> end;
-    }
+    cout << endl << "Введите конец промежутка рандома: ";
+    cin >> end;
 
-    if (begin > end) {
-        begin += end;
-        end -= begin;
-        end = -end;
-        begin -= end;
-    }
+    if (begin > end)
+        swap(begin, end);
+}
+
+int random (int begin, int end) {
+    return rand() % (end - begin + 1) + begin;
 }
 
 void randomInput (int count) {
     int begin, end;
     getInterval(begin, end);
 
-    for (int i = 0; i < count; i++)
-        _begin = inStack(_begin, rand() % (end - begin + 1) + begin);
+    for (int i = 0; i < count; i++) {
+        if (begin >= 0)
+            _begin = inStack(_begin, random(begin, end));
+        else if (end < 0)
+            _begin = inStack(_begin, -random(abs(end), abs(begin)));
+        else {
+            int temp = rand() % 2;
+            if (temp == 1)
+                _begin = inStack(_begin, random(0, end));
+            else
+                _begin = inStack(_begin, -random(0, abs(begin)));
+        }
+    }
 }
 
 void menuInput (int count) {
-    int menu = -1;
+    int menu;
     while (!(menu > 0 && menu < 3)) {
         cout << endl << "Меню ввода элементов в стек: " << endl;
         cout << "1 - ручной ввод" << endl;
@@ -287,7 +293,7 @@ void exit() {
     exit(0);
 }
 
-void moveFromFirstStepToAnother() {
+void moveFromFirstStackToAnother() {
     if (_begin == NULL) {
         cout << endl << "Первый стек пустой" << endl;
         return;
@@ -321,6 +327,7 @@ void moveFromFirstStepToAnother() {
 }
 
 int main() {
+    srand(time(0));
     int count;
 
     while (true) {
@@ -330,7 +337,7 @@ int main() {
         cout << "2 - Добавить элементы в стек" << endl;
         cout << "3 - Просмотр элементов стека" << endl;
         cout << "4 - Освобождение памяти" << endl;
-        cout << "5 - Перенести из созданного списка в новый список все элементы между началом и максимальным значением" << endl;
+        cout << "5 - Перенести из созданного стека в новый стек все элементы между началом и максимальным значением" << endl;
         cout << "0 - Завершение работы" << endl;
         cout << "Ваш выбор: ";
         cin >> menu;
@@ -349,7 +356,7 @@ int main() {
                 cleanMemory();
                 break;
             case 5:
-                moveFromFirstStepToAnother();
+                moveFromFirstStackToAnother();
                 break;
             case 0:
                 exit();
