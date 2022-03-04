@@ -8,6 +8,11 @@ struct list {
     list *prev, *next;
 } *_begin, *_end, *t;
 
+struct list1 {
+    int element;
+    list1 *prev, *next;
+} *_begin1, *_end1, *t1;
+
 int _count = 0;
 
 void createList (list **begin, list **end, int element) {
@@ -32,7 +37,7 @@ int random (int begin, int end) {
     return rand() % (end - begin + 1) + begin;
 }
 
-int menuInput () {
+int menuInput() {
     int menu;
     while (!(menu > 0 && menu < 3)) {
         cout << endl << "Меню ввода элемента в список: " << endl;
@@ -70,7 +75,7 @@ int menuInput () {
     return 0;
 }
 
-void createList () {
+void createList() {
     if (_begin != NULL) {
         cout << endl << "Освободите память" << endl;
         return;
@@ -95,7 +100,7 @@ void addElement (int destination, list **begin, list **end, int element) {
     }
 }
 
-void addElement () {
+void addElement() {
     if (_begin == NULL) {
         cout << endl << "Список пустой" << endl;
         return;
@@ -132,7 +137,14 @@ void viewList (int destination, list *t) {
     }
 }
 
-void viewList () {
+void viewList(list1 *t) {
+    while (t != NULL) {
+        cout << t -> element << endl;
+        t = t -> next;
+    }
+}
+
+void viewList() {
     if (!_begin) {
         cout << endl << "Список пустой" << endl;
         return;
@@ -169,7 +181,15 @@ void deleteList (list **p) {
     }
 }
 
-void deleteElement () {
+void deleteList (list1 **p) {
+    while (*p != NULL) {
+        t1 = *p;
+        *p = (*p) -> next;
+        delete t;
+    }
+}
+
+void deleteElement() {
     int element;
     cout << endl << "Введите элемент для удаления: ";
     cin >> element;
@@ -198,7 +218,7 @@ void deleteElement () {
 
         _begin = _begin -> next;
         _begin -> prev = NULL;
-    } else if (indexAddress -> element = _end -> element) {
+    } else if (indexAddress -> element == _end -> element) {
         _end = _end -> prev;
         _end -> next = NULL;
     } else {
@@ -208,13 +228,60 @@ void deleteElement () {
     }
 }
 
-void cleanMemory () {
+void cleanMemory() {
     if (_begin != NULL)
         deleteList(&_begin);
     cout << endl << "Память освобождена" << endl;
 }
 
-void exit () {
+void moveFromFirstListToAnother() {
+    if (_begin == NULL) {
+        cout << endl << "Первый лист пустой" << endl;
+        return;
+    }
+
+    t = _begin;
+    int count;
+    while (t != NULL) {
+        count++;
+        t = t -> next;
+    }
+
+    int *array = new int[count];
+    count = 0;
+    t = _begin;
+    while (t != NULL) {
+        array[count++] = t -> element;
+        t = t -> next;
+    }
+
+    int iMax = 0;
+    for (int i = 0; i < count; i++)
+        iMax = array[iMax] < array[i] ? i : iMax;
+
+    deleteList(&_begin1);
+
+    t1 = new list1;
+    t1 -> element = array[0];
+    t1 -> next = t1 -> prev = NULL;
+    _begin1 = _end1 = t1;
+
+    for (int i = 1; i <= iMax; i++) {
+        t1 = new list1;
+        t1 -> element = array[i];
+        t1 -> next = NULL;
+        t1 -> prev = _end1;
+        _end1 -> next = t1;
+        _end1 = t1;
+
+        t1 = _end1;
+    }
+
+    cout << endl << "Новый список: " << endl;
+    viewList(_begin1);
+}
+
+void exit() {
     if (_begin != NULL)
         deleteList(&_begin);
     exit(0);
@@ -230,7 +297,7 @@ int main() {
         cout << "2 - Добавить элемент в список" << endl;
         cout << "3 - Просмотр элементов списка" << endl;
         cout << "4 - Удаление элемента в списке" << endl;
-        cout << "5 - Освобождение памяти" << endl; // аналог lab_2
+        cout << "5 - Освобождение памяти" << endl;
         cout << "6 - Перенести из созданного списка в новый список все элементы расположенные между началом и максимальным значением" << endl;
         cout << "0 - Завершение работы" << endl;
         cout << "Ваш выбор: ";
@@ -255,6 +322,7 @@ int main() {
                 cleanMemory();
                 break;
             case 6:
+                moveFromFirstListToAnother();
                 break;
             case 0:
                 exit();
