@@ -102,7 +102,7 @@ void addElement () {
     }
 
     int destination;
-    while (break) {
+    while (true) {
         cout << endl << "Выберите с какой стороны списка добавить элемент: " << endl;
         cout << "1 - В начало" << endl;
         cout << "2 - В конец" << endl;
@@ -161,6 +161,65 @@ void viewList () {
     viewList(destination, t);
 }
 
+void deleteList (list **p) {
+    while (*p != NULL) {
+        t = *p;
+        *p = (*p) -> next;
+        delete t;
+    }
+}
+
+void deleteElement () {
+    int element;
+    cout << endl << "Введите элемент для удаления: ";
+    cin >> element;
+
+    list *indexAddress = NULL;
+    t = _begin;
+    while (t != NULL) {
+        if (t -> element == element) {
+            indexAddress = t;
+            t = t -> next;
+            break;
+        }
+        t = t -> next;
+    }
+
+    if (indexAddress == NULL) {
+        cout << endl << "Совпадений не найдено" << endl;
+        return;
+    }
+
+    if (indexAddress -> element == _begin -> element) {
+        if (_begin -> next == NULL) {
+            deleteList(&_begin);
+            return;
+        }
+
+        _begin = _begin -> next;
+        _begin -> prev = NULL;
+    } else if (indexAddress -> element = _end -> element) {
+        _end = _end -> prev;
+        _end -> next = NULL;
+    } else {
+        (indexAddress -> prev) -> next = indexAddress -> next;
+        (indexAddress -> next) -> prev = indexAddress -> prev;
+        indexAddress = NULL;
+    }
+}
+
+void cleanMemory () {
+    if (_begin != NULL)
+        deleteList(&_begin);
+    cout << endl << "Память освобождена" << endl;
+}
+
+void exit () {
+    if (_begin != NULL)
+        deleteList(&_begin);
+    exit(0);
+}
+
 int main() {
     srand(time(0));
 
@@ -189,13 +248,16 @@ int main() {
             case 3:
                 viewList();
                 break;
-                /*case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 0:*/
+            case 4:
+                deleteElement();
+                break;
+            case 5:
+                cleanMemory();
+                break;
+            case 6:
+                break;
+            case 0:
+                exit();
         }
     }
 }
