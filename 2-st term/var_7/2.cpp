@@ -282,6 +282,8 @@ void deleteStack (_stack **p) {
 void cleanMemory() {
     if (_begin != NULL)
         deleteStack(&_begin);
+    if (_begin1 != NULL)
+        deleteStack(&_begin1);
     cout << endl << "Память освобождена" << endl;
 }
 
