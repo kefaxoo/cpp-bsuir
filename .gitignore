@@ -10,3 +10,5 @@ tempCodeRunnerFile.cpp
 /.vscode
 
 *.pdf
+
+temp*.cpp
