@@ -12,3 +12,4 @@ tempCodeRunnerFile.cpp
 *.pdf
 
 temp*.cpp
+!template5.cpp
