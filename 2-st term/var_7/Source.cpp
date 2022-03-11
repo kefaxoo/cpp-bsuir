@@ -14,7 +14,7 @@ struct Tree {
     Tree *left, *right;
 } *root;
 
-Tree *List (int number, string name) {
+Tree *List(int number, string name) {
     Tree *t = new Tree;
     t -> numberPassport = number;
     t -> name = name;
@@ -22,7 +22,7 @@ Tree *List (int number, string name) {
     return t;
 }
 
-string enterString () {
+string enterString() {
     string str;
     int count = 0;
 
@@ -30,6 +30,7 @@ string enterString () {
         char temp = _getche();
         if (short(temp) == 13 || count == 255)
             break;
+
         str += temp;
         count++;
     }
@@ -47,7 +48,7 @@ string enterString () {
     }
 }
 
-void createTree () {
+void createTree() {
     if (root != NULL) {
         cout << endl << "Освободите память" << endl;
         _count--;
@@ -65,7 +66,7 @@ void createTree () {
     root = List(numberPassport, name);
 }
 
-void viewTree (Tree *p, int level) {
+void viewTree(Tree *p, int level) {
     if (root == NULL) {
         cout << endl << "\"Дерево\" пустое" << endl;
         return;
@@ -80,20 +81,21 @@ void viewTree (Tree *p, int level) {
 
 string _name;
 
-void searchByName (Tree *p, int level, bool &find) {
+void searchByName(Tree *p, int level, bool &find) {
     if (p) {
         searchByName(p -> right, level + 1, find);
         if (_name == p -> name) {
             cout << endl << "Найдено совпадение: " << p -> numberPassport << " | " << p -> name << endl;
             return;
         }
+
         searchByName(p -> left, level + 1, find);
     }
 }
 
 int _number;
 
-void searchByNumber (Tree *p, int level, bool &find) {
+void searchByNumber(Tree *p, int level, bool &find) {
     if (p) {
         searchByNumber(p -> right, level + 1, find);
         if (_number == p -> numberPassport) {
@@ -104,7 +106,7 @@ void searchByNumber (Tree *p, int level, bool &find) {
     }
 }
 
-void findInfo (Tree *p, int level) {
+void findInfo(Tree *p, int level) {
     if (root == NULL) {
         cout << endl << "\"Дерево\" пустое" << endl;
         return;
@@ -122,25 +124,25 @@ void findInfo (Tree *p, int level) {
     bool find = false;
 
     switch (menu) {
-        case 1: {
-            cout << endl << "Введите номер паспорта: ";
-            cin >> _number;
-            searchByNumber(p, level, find);
-        }
-            break;
+    case 1: {
+        cout << endl << "Введите номер паспорта: ";
+        cin >> _number;
+        searchByNumber(p, level, find);
+    }
+          break;
 
-        case 2: {
-            cout << endl << "Введите ФИО: ";
-            _name = enterString();
-            searchByName(p, level, find);
-        }
+    case 2: {
+        cout << endl << "Введите ФИО: ";
+        _name = enterString();
+        searchByName(p, level, find);
+    }
     }
 
     if (!find)
         cout << endl << "Совпадений не найдено" << endl;
 }
 
-void addElement (Tree *root) {
+void addElement(Tree *root) {
     if (root == NULL) {
         cout << endl << "\"Дерево\" пустое" << endl;
         return;
@@ -179,7 +181,7 @@ void addElement (Tree *root) {
     }
 }
 
-Tree *deleteByNumber (Tree *root) {
+Tree *deleteByNumber(Tree *root) {
     Tree *_delete, *prevDelete, *_right, *prevRight;
     _delete = root;
     prevDelete = NULL;
@@ -218,18 +220,18 @@ Tree *deleteByNumber (Tree *root) {
 
         if (_delete == root)
             root = _right;
-        else if (_delete -> numberPassport < prevDelete -> numberPassport)
+        else if (_delete->numberPassport < prevDelete -> numberPassport)
             prevDelete -> left = _right;
         else
             prevDelete -> right = _right;
-        
+
         delete _delete;
         _count--;
         return root;
     }
 }
 
-Tree *deleteByName (Tree *root) {
+Tree *deleteByName(Tree *root) {
     Tree *_delete, *prevDelete, *_right, *prevRight;
     _delete = root;
     prevDelete = NULL;
@@ -272,14 +274,14 @@ Tree *deleteByName (Tree *root) {
             prevDelete -> left = _right;
         else
             prevDelete -> right = _right;
-        
+
         delete _delete;
         _count--;
         return root;
     }
 }
 
-void deleteElement () {
+void deleteElement() {
     int menu = 0;
     while (!(menu > 0 && menu < 3)) {
         cout << endl << "Выберите вид удаления: " << endl;
@@ -307,20 +309,20 @@ void deleteElement () {
 
 int _countOfSymbols = 0;
 
-void coutCount (Tree *p, int level) {
+void coutCount(Tree* p, int level) {
     if (p) {
-        coutCount(p -> right, level + 1);
-        cout << p -> numberPassport << " | " << p -> name << " | ";
+        coutCount(p->right, level + 1);
+        cout << p->numberPassport << " | " << p->name << " | ";
         int temp = 0;
-        for (int i = 0; i < (p -> name).length(); i++)
-            temp = (p -> name)[i] != ' ' && (p->name)[i] != '\0' ? temp + 1 : temp;
+        for (int i = 0; i < (p->name).length(); i++)
+            temp = (p->name)[i] != ' ' && (p->name)[i] != '\0' ? temp + 1 : temp;
         cout << temp << endl;
         _countOfSymbols += temp;
-        coutCount(p -> left, level + 1);
+        coutCount(p->left, level + 1);
     }
 }
 
-void coutCount () {
+void coutCount() {
     if (root == NULL) {
         cout << endl << "\"Дерево\" пустое" << endl;
         return;
@@ -330,54 +332,54 @@ void coutCount () {
     cout << "Общее количество строк в \"дереве\": " << _countOfSymbols << endl;
 }
 
-void deleteTree (Tree *t) {
+void deleteTree(Tree* t) {
     if (t != NULL) {
-        deleteTree(t -> left);
-        deleteTree(t -> right);
+        deleteTree(t->left);
+        deleteTree(t->right);
         delete t;
     }
 }
 
-void deleteTree () {
+void deleteTree() {
     deleteTree(root);
     cout << endl << "Память освобождена" << endl;
     root = NULL;
     _count = 0;
 }
 
-void exit () {
+void exit() {
     if (root != NULL)
         deleteTree(root);
 
     exit(0);
 }
 
-void direct (Tree *p) {
+void direct(Tree* p) {
     if (p) {
-        cout << p -> numberPassport << " | " << p -> name << endl;
-        direct(p -> left);
-        direct(p -> right);
+        cout << p->numberPassport << " | " << p->name << endl;
+        direct(p->left);
+        direct(p->right);
     }
 }
 
-void reverse (Tree *p) {
+void reverse(Tree* p) {
     if (p) {
-        reverse(p -> left);
-        reverse(p -> right);
-        cout << p -> numberPassport << " | " << p -> name << endl;
+        reverse(p->left);
+        reverse(p->right);
+        cout << p->numberPassport << " | " << p->name << endl;
     }
 }
 
-void getElements (Tree *p, int *numbers, string *names, int i) {
+void getElements(Tree* p, int* numbers, string* names, int i, int j) {
     if (p) {
-        getElements(p -> right, numbers, names, i + 1);
-        numbers[i] = p -> numberPassport;
-        names[i] = p -> name;
-        getElements(p -> left, numbers, names, i + 1);
+        numbers[j] = p -> numberPassport;
+        names[j] = p -> name;
+        getElements(p -> left, numbers, names, i + 1, j + 1);
+        getElements(p -> right, numbers, names, i + 1, j + 1);
     }
 }
 
-void sort (int *numbers, string *names) {
+void sort(int* numbers, string* names) {
     for (int i = 0; i < _count - 1; i++)
         for (int j = i; j < _count; j++)
             if (*(numbers + i) > *(numbers + j)) {
@@ -388,33 +390,33 @@ void sort (int *numbers, string *names) {
             }
 }
 
-void moveFromArraysToTree (int *numbers, string *names, int i, Tree *root) {
-    if (root == NULL) {
-        root = List(*(numbers + i), *(names + i));
-        moveFromArraysToTree(numbers, names, i + 1, root);
-        return;
-    }
-
-    Tree* prev, * t;
+void addElementsForArrays (Tree *root, int numberPassport, string name) {
+    Tree* prev,* t;
+    bool find = true;
     t = root;
-    while (t) {
+    while (t && find) {
         prev = t;
-        if (*(numbers + i) < t -> numberPassport)
-            t = t -> left;
+        if ((numberPassport == t->numberPassport) || (name == t->name)) {
+            find = false;
+            cout << endl << "Элемент уже существует в дереве" << endl;
+            _count--;
+        }
+        else if (numberPassport < t->numberPassport)
+            t = t->left;
         else
-            t = t -> right;
+            t = t->right;
     }
 
-    t = List(*(numbers + i), *(names + i));
-    if (*(numbers + i) < prev -> numberPassport)
-        prev -> left = t;
-    else
-        prev -> right = t;
-
-    moveFromArraysToTree(numbers, names, i + 1, root);
+    if (find) {
+        t = List(numberPassport, name);
+        if (numberPassport < prev->numberPassport)
+            prev->left = t;
+        else
+            prev->right = t;
+    }
 }
 
-void view () {
+void view() {
     int menu = 0;
     while (!(menu > 0 && menu < 4)) {
         cout << endl << "Меню выбора обхода дерева: " << endl;
@@ -432,24 +434,26 @@ void view () {
 
     cout << endl << "#Паспорта | ФИО" << endl;
     switch (menu) {
-        case 1:
-            direct(root);
-            break;
-        case 2:
-            reverse(root);
-            break;
-        case 3: {
-            int *arrayOfNumbers = new int[_count];
-            string* arrayOfNames = new string[_count];
-            getElements(root, arrayOfNumbers, arrayOfNames, 0);
-            sort(arrayOfNumbers, arrayOfNames);
-            deleteTree(root);
-            moveFromArraysToTree(arrayOfNumbers, arrayOfNames, 0, root);
-            direct(root);
-            
-            delete [] arrayOfNumbers;
-            delete [] arrayOfNames;
-        }
+    case 1:
+        direct(root);
+        break;
+    case 2:
+        reverse(root);
+        break;
+    case 3: {
+        int* arrayOfNumbers = new int[_count];
+        string* arrayOfNames = new string[_count];
+        getElements(root, arrayOfNumbers, arrayOfNames, 0, 0); 
+        sort(arrayOfNumbers, arrayOfNames); 
+        deleteTree(root);
+        root = List(arrayOfNumbers[0], arrayOfNames[0]);
+        for (int i = 1; i < _count; i++)
+            addElementsForArrays(root, arrayOfNumbers[i], arrayOfNames[i]);
+        direct(root);
+
+        delete[] arrayOfNumbers;
+        delete[] arrayOfNames;
+    }
     }
 }
 
@@ -457,6 +461,7 @@ int main() {
     setlocale(LC_CTYPE, "RUSSIAN");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
+    setlocale(LC_ALL, "RUSSIAN");
     while (true) {
         int menu;
         cout << endl << "Меню работы с \"деревом\":" << endl;
@@ -473,46 +478,46 @@ int main() {
         cin >> menu;
 
         switch (menu) {
-            case 1: {
-                _count++;
-                createTree();
-            }
-                  break;
+        case 1: {
+            _count++;
+            createTree();
+        }
+              break;
 
-            case 2: {
-                _count++;
-                addElement(root);
-            }
-                  break;
+        case 2: {
+            _count++;
+            addElement(root);
+        }
+              break;
 
-            case 3: {
-                cout << endl << "Просмотр \"дерева\":" << endl << "#Паспорта | ФИО" << endl;
-                viewTree(root, 0);
-            }
-                  break;
+        case 3: {
+            cout << endl << "Просмотр \"дерева\":" << endl << "#Паспорта | ФИО" << endl;
+            viewTree(root, 0);
+        }
+              break;
 
-            case 4:
-                findInfo(root, 0);
-                break;
+        case 4:
+            findInfo(root, 0);
+            break;
 
-            case 5:
-                deleteElement();
-                break;
+        case 5:
+            deleteElement();
+            break;
 
-            case 6:
-                coutCount();
-                break;
+        case 6:
+            coutCount();
+            break;
 
-            case 7:
-                deleteTree();
-                break;
+        case 7:
+            deleteTree();
+            break;
 
-            case 8:
-                view();
-                break;
+        case 8:
+            view();
+            break;
 
-            case 0:
-                exit();
+        case 0:
+            exit();
         }
     }
 }
