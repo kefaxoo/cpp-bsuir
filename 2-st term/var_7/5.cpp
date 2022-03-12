@@ -79,20 +79,6 @@ void viewTree(Tree *p, int level) {
     }
 }
 
-string _name;
-
-void searchByName(Tree *p, int level, bool &find) {
-    if (p) {
-        searchByName(p -> right, level + 1, find);
-        if (_name == p -> name) {
-            cout << endl << "Найдено совпадение: " << p -> numberPassport << " | " << p -> name << endl;
-            return;
-        }
-
-        searchByName(p -> left, level + 1, find);
-    }
-}
-
 int _number;
 
 void searchByNumber(Tree *p, int level, bool &find) {
@@ -112,31 +98,11 @@ void findInfo(Tree *p, int level) {
         return;
     }
 
-    int menu = 0;
-    while (!(menu > 0 && menu < 3)) {
-        cout << endl << "Выберите вид поиска: " << endl;
-        cout << "1 - По номеру паспорта" << endl;
-        cout << "2 - По ФИО" << endl;
-        cout << "Ваш вариант: ";
-        cin >> menu;
-    }
-
     bool find = false;
 
-    switch (menu) {
-        case 1: {
-            cout << endl << "Введите номер паспорта: ";
-            cin >> _number;
-            searchByNumber(p, level, find);
-        }
-            break;
-
-        case 2: {
-            cout << endl << "Введите ФИО: ";
-            _name = enterString();
-            searchByName(p, level, find);
-        }
-    }
+    cout << endl << "Введите номер паспорта: ";
+    cin >> _number;
+    searchByNumber(p, level, find);
 
     if (!find)
         cout << endl << "Совпадений не найдено" << endl;
@@ -358,46 +324,22 @@ void deleteElement() {
     deleteTree(root);
     bool find = false;
 
-    switch (menu) {
-        case 1: {
-            cout << endl << "Введите номер паспорта: ";
-            cin >> _number;
-            if (_count > 1)
-                for (int i = 0; i < _count - 1; i++) {
-                    if (arrayOfNumbers[i] == _number) {
-                        find = true;
-                        for (int j = i; j < _count - 1; j++) {
-                            arrayOfNames[j] = arrayOfNames[j + 1];
-                            arrayOfNumbers[j] = arrayOfNumbers[j + 1];
-                        }
-
-                        break;
-                    }
-                }
-            else if (arrayOfNumbers[0] == _number)
+    cout << endl << "Введите номер паспорта: ";
+    cin >> _number;
+    if (_count > 1)
+        for (int i = 0; i < _count - 1; i++) {
+            if (arrayOfNumbers[i] == _number) {
                 find = true;
-        }
-            break;
-
-        case 2: {
-            cout << endl << "Введите ФИО: ";
-            _name = enterString();
-            if (_count > 1)
-                for (int i = 0; i < _count - 1; i++) {
-                    if (arrayOfNames[i] == _name) {
-                        find = true;
-                        for (int j = i; j < _count - 1; j++) {
-                            arrayOfNames[j] = arrayOfNames[j + 1];
-                            arrayOfNumbers[j] = arrayOfNumbers[j + 1];
-                        }
-
-                        break;
-                    }
+                for (int j = i; j < _count - 1; j++) {
+                    arrayOfNames[j] = arrayOfNames[j + 1];
+                    arrayOfNumbers[j] = arrayOfNumbers[j + 1];
                 }
-            else if (arrayOfNames[0] == _name)
-                find = true;
+
+                break;
+            }
         }
-    }
+    else if (arrayOfNumbers[0] == _number)
+        find = true;
 
     if (find)
         _count--;
@@ -405,11 +347,6 @@ void deleteElement() {
     if (_count == 0 && find) {
         return;
     }
-
-    cout << endl << _count << endl;
-
-    for (int i = 0; i < _count; i++)
-        cout << endl << arrayOfNumbers[i] << " " << arrayOfNames[i];
 
     root = List(arrayOfNumbers[0], arrayOfNames[0]);
     for (int i = 1; i < _count; i++)
