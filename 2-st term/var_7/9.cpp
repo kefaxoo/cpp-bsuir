@@ -643,7 +643,7 @@ void exit () {
     if (countOfPlayers > 0)
         cleanMemory();
 
-    exit();
+    exit(0);
 }
 
 int getParametr () {
