@@ -223,9 +223,6 @@ void showDatabase () {
 }
 
 void writeDataToEnd () {
-    if (countOfPlayers != 0)
-        cleanMemory();
-    
     string temp;
     cout << endl << "Добавление игрока в БД: " << endl;
     countOfPlayers++;
