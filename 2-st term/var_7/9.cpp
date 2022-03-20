@@ -21,6 +21,7 @@ ID|NameOfPlayer|SurnameOfPlayer|MiddleNameOfPlayer|GameNumber|Age|Height|Weight|
 */
 #include <iostream>
 #include <fstream>
+#include <float.h>
 
 using namespace std;
 
@@ -53,11 +54,11 @@ string input() {
 void enterDatabaseName () {
     if (countOfPlayers > 0)
         delete [] Players;
-    
+
     countOfPlayers = 0;
     cout << endl << "Введите название файла: ";
     string temp = input() + ".txt";
-    
+
     fileName = new char[temp.length()];
     for (int i = 0; i < temp.length(); i++)
         fileName[i] = temp[i];
@@ -127,10 +128,10 @@ void readDataBase () {
         cout << endl << "Файл БД пустой" << endl;
         return;
     }
-    
+
     if (countOfPlayers != 0)
         cleanMemory();
-    
+
     ifstream openFile(fileName);
     char line[500];
     Players = new player[countOfPlayers];
@@ -217,7 +218,7 @@ bool checkMemory () {
 void showDatabase () {
     if (checkMemory())
         return;
-    
+
     cout << endl << "Содержимое БД: " << endl;
     output();
 }
@@ -264,7 +265,7 @@ player *removePlayer (int id) {
     for (int i = 0; i < countOfPlayers; i++) {
         if (Players[i].id == id)
             continue;
-        
+
         newArray[j++] = Players[i];
     }
 
@@ -292,7 +293,7 @@ int getID () {
 void removePlayer () {
     if (checkMemory())
         return;
-    
+
     cout << endl << "Удаление игрока из БД: " << endl;
     output();
     int id = getID();
@@ -321,7 +322,7 @@ int getIndex (int id) {
 void editPlayer () {
     if (checkMemory())
         return;
-    
+
     cout << endl << "Изменение данных игрока в БД: " << endl;
     output();
 
@@ -353,58 +354,58 @@ void editPlayer () {
                 cout << endl << "Введите ID: ";
                 cin >> Players[i].id;
             }
-            break;
+                break;
             case 2: {
                 cout << endl << "Введите имя: ";
                 Players[i].name = input();
             }
-            break;
+                break;
             case 3: {
                 cout << endl << "Введите фамилию: ";
                 Players[i].surname = input();
             }
-            break;
+                break;
             case 4: {
                 cout << endl << "Введите отчество: ";
                 Players[i].middleName = input();
             }
-            break;
+                break;
             case 5: {
                 cout << endl << "Введите игровой номер: ";
                 cin >> Players[i].gameNumber;
             }
-            break;
+                break;
             case 6: {
                 cout << endl << "Введите возраст: ";
                 cin >> Players[i].age;
             }
-            break;
+                break;
             case 7: {
                 cout << endl << "Введите рост (в метрах): ";
                 cin >> Players[i].height;
             }
-            break;
+                break;
             case 8: {
                 cout << endl << "Введите вес (в килограммах): ";
                 cin >> Players[i].weight;
             }
-            break;
+                break;
             case 9: {
                 cout << endl << "Введите страну: ";
                 Players[i].country = input();
             }
-            break;
+                break;
 
             case 10: {
                 cout << endl << "Введите команду: ";
-               Players[i].team = input();
+                Players[i].team = input();
             }
-            break;
+                break;
             case 11: {
                 id = getID();
                 i = getIndex(id);
             }
-            break;
+                break;
             case 0:
                 return;
         }
@@ -417,7 +418,7 @@ void editPlayer () {
 void moveToFile () {
     if (checkMemory())
         return;
-    
+
     ofstream openFile(fileName);
     for (int i = 0; i < countOfPlayers; i++) {
         openFile << Players[i].id << "|" << Players[i].name << "|" << Players[i].surname << "|" << Players[i].middleName << "|" << Players[i].gameNumber << "|" << Players[i].age << "|" << Players[i].height << "|" << Players[i].weight << "|" << Players[i].country << "|" << Players[i].team << ";";
@@ -466,7 +467,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 2: {
                 string name;
                 cout << endl << "Введите имя игрока: ";
@@ -486,7 +487,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 3: {
                 string surname;
                 cout << endl << "Введите фамилию игрока: ";
@@ -506,7 +507,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 4: {
                 string middleName;
                 cout << endl << "Введите отчество игрока: ";
@@ -526,7 +527,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 5: {
                 int gameNumber;
                 cout << endl << "Введите игровой номер игрока: ";
@@ -541,7 +542,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 6: {
                 int age;
                 cout << endl << "Введите возраст игрока: ";
@@ -556,7 +557,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 7: {
                 double height;
                 cout << endl << "Введите рост игрока: ";
@@ -571,7 +572,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 8: {
                 double weight;
                 cout << endl << "Введите вес игрока: ";
@@ -586,7 +587,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 9: {
                 string country;
                 cout << endl << "Введите страну игрока: ";
@@ -606,7 +607,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 10: {
                 string team;
                 cout << endl << "Введите команду игрока: ";
@@ -626,7 +627,7 @@ void linearSearch () {
                     }
                 }
             }
-            break;
+                break;
             case 0:
                 return;
         }
@@ -655,7 +656,7 @@ int getParametr () {
         cout << "Ваш выбор: ";
         cin >> parametr;
     }
-    
+
     return parametr;
 }
 
@@ -664,7 +665,7 @@ void selectionSortID () {
         int position = i;
         for (int j = i + 1; j < countOfPlayers; j++)
             position = Players[j].id < Players[position].id ? j : position;
-        
+
         swap(Players[position], Players[i]);
     }
 }
@@ -674,7 +675,7 @@ void selectionSortGameNumber () {
         int position = i;
         for (int j = i + 1; j < countOfPlayers; j++)
             position = Players[j].gameNumber < Players[position].gameNumber ? j : position;
-        
+
         swap(Players[position], Players[i]);
     }
 }
@@ -684,7 +685,7 @@ void selectionSortAge () {
         int position = i;
         for (int j = i + 1; j < countOfPlayers; j++)
             position = Players[j].age < Players[position].age ? j : position;
-        
+
         swap(Players[position], Players[i]);
     }
 }
@@ -694,7 +695,7 @@ void selectionSortHeight () {
         int position = i;
         for (int j = i + 1; j < countOfPlayers; j++)
             position = Players[j].height < Players[position].height ? j : position;
-        
+
         swap(Players[position], Players[i]);
     }
 }
@@ -704,7 +705,7 @@ void selectionSortWeight () {
         int position = i;
         for (int j = i + 1; j < countOfPlayers; j++)
             position = Players[j].weight < Players[position].weight ? j : position;
-        
+
         swap(Players[position], Players[i]);
     }
 }
@@ -1065,7 +1066,7 @@ void sortDatabase () {
         cout << endl << "В памяти находится один игрок" << endl;
         return;
     }
-    
+
     int menu = 0;
     cout << endl << "Сортировка БД" << endl;
     while (!(menu > 0 && menu < 3)) {
@@ -1086,9 +1087,79 @@ void sortDatabase () {
     cout << endl << "Сортировка успешно завершена" << endl;
 }
 
+void search () {
+    int menu;
+    while (!(menu > 0 && menu < 3)) {
+        cout << endl << "Выберите тип поиска: " << endl;
+        cout << "1 - Линейный поиск" << endl;
+        cout << "2 - Двоичный поиск" << endl;
+        cout << "Ваш выбор: ";
+        cin >> menu;
+    }
+
+    switch (menu) {
+        case 1:
+            linearSearch();
+            break;
+        case 2:
+            binarySearch();
+    }
+}
+
+string *resize (string array[], int size) {
+    string *newArray = new string[size];
+    for (int i = 0; i < size - 1; i++)
+        newArray[i] = array[i];
+
+    return newArray;
+}
+
+void theYoungestTeam () {
+    int size = 0;
+    string *teams;
+    for (int i = 0; i < countOfPlayers; i++) {
+        bool find = false;
+        if (size > 0)
+            for (int j = 0; j < size; j++)
+                if (Players[i].team == teams[j]) {
+                    find = true;
+                    break;
+                }
+
+        if (!find) {
+            size++;
+            teams = resize(teams, size);
+            teams[size - 1] = Players[i].team;
+        }
+    }
+
+    double **sumOfAgesAndCount = new double *[size];
+    for (int i = 0; i < size; i++)
+        sumOfAgesAndCount[i] = new double[2];
+
+    for (int i = 0; i < countOfPlayers; i++)
+        for (int j = 0; j < size; j++)
+            if (Players[i].team == teams[j]) {
+                sumOfAgesAndCount[j][0] += Players[i].age;
+                sumOfAgesAndCount[j][1]++;
+            }
+
+    int indexOfMin = 0;
+    for (int i = 0; i < size; i++)
+        indexOfMin = sumOfAgesAndCount[indexOfMin][0] / sumOfAgesAndCount[indexOfMin][1] > sumOfAgesAndCount[i][0] / sumOfAgesAndCount[i][1] ? i : indexOfMin;
+
+    cout << endl << "Самая молодая команда: " << teams[indexOfMin] << endl;
+
+    for (int i = 0; i < size; i++)
+        delete [] sumOfAgesAndCount[i];
+
+    delete [] sumOfAgesAndCount;
+    delete [] teams;
+}
+
 int main() {
     enterDatabaseName();
-    
+
     while (true) {
         int menu;
         cout << endl << "Меню работы с БД \"" << fileName << "\": " << endl;
@@ -1102,13 +1173,12 @@ int main() {
         cout << "8 - Выбрать другую БД" << endl;
         cout << "9 - Перенос БД из оперативной памяти в файл (с форматированием файла)" << endl;
         cout << "10 - Очистка памяти" << endl;
-        cout << "11 - Линейный поиск" << endl;
+        cout << "11 - Поиск по БД" << endl;
         cout << "12 - Сортировка" << endl;
-        cout << "13 - Двоичный поиск" << endl;
+        cout << "13 - Самая молодая команда" << endl;
         cout << "0 - Завершение работы" << endl;
         cout << "Ваш выбор: ";
         cin >> menu;
-
         switch (menu) {
             case 1:
                 checkIfDatabaseExist();
@@ -1141,13 +1211,13 @@ int main() {
                 cleanMemory();
                 break;
             case 11:
-                linearSearch();
+                search();
                 break;
             case 12:
                 sortDatabase();
                 break;
             case 13:
-                binarySearch();
+                theYoungestTeam();
                 break;
             case 0:
                 exit();
