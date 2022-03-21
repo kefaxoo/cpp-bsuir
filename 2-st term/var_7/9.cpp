@@ -21,7 +21,6 @@ ID|NameOfPlayer|SurnameOfPlayer|MiddleNameOfPlayer|GameNumber|Age|Height|Weight|
 */
 #include <iostream>
 #include <fstream>
-#include <float.h>
 
 using namespace std;
 
@@ -124,15 +123,15 @@ void cleanMemory () {
 }
 
 void readDataBase () {
-    if (getCountOfCharInFiles() <= 3) {
-        cout << endl << "Файл БД пустой" << endl;
-        return;
-    }
-
     if (countOfPlayers != 0)
         cleanMemory();
 
     ifstream openFile(fileName);
+    if (!openFile.is_open()) {
+        cout << endl << "Файла БД не существует" << endl;
+        return;
+    }
+
     char line[500];
     Players = new player[countOfPlayers];
     cout << endl << "Чтение БД в оперативную память ПК " << endl;
@@ -1088,7 +1087,7 @@ void sortDatabase () {
 }
 
 void search () {
-    int menu;
+    int menu = 0;
     while (!(menu > 0 && menu < 3)) {
         cout << endl << "Выберите тип поиска: " << endl;
         cout << "1 - Линейный поиск" << endl;
