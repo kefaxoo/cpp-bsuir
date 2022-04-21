@@ -16,3 +16,7 @@ temp*.cpp
 
 database.txt
 testDB.txt
+
+CMakeLists.txt
+/build
+Backup of *.docx
