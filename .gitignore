@@ -20,3 +20,4 @@ testDB.txt
 CMakeLists.txt
 /build
 Backup of *.docx
+main.cpp
