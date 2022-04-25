@@ -1,10 +1,19 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
-double recursion(double x, int a, int n, int i = 0) {
-    if (i != n)
-        return recursion(0.5 * (x + a / x), a, n, i + 1);
+double recursion(double x, int a) {
+    if (x != sqrt(a))
+        return recursion(0.5 * (x + a / x), a);
+
+    return x;
+}
+
+double func (int a, int n) {
+    double x = 0.5 * (1 + a);
+    for (int i = 0; i <= n; i++)
+        x = 0.5 * (x + a / x);
 
     return x;
 }
@@ -16,10 +25,6 @@ int main() {
     int n;
     cout << endl << "Введите n: ";
     cin >> n;
-    double x = recursion(0.5 * (1 + a), a, n);
-    cout << endl << "recursion: x = " << x << endl;
-    x = 0.5 * (1 + a);
-    for (int i = 1; i <= n; i++)
-        x = 0.5 * (x + a / x);
-    cout << endl << "loop: x = " << x << endl;
+    cout << endl << "recursion: x = " << recursion(0.5 * (1 + a), a) << endl;
+    cout << endl << "loop: x = " << func(a, n) << endl;
 }
