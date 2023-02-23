@@ -33,4 +33,14 @@ int main() {
 
     cout << "Отсортированная по возрастанию матрица: " << endl;
     Output(matrix);
+
+    for (int i = 0; i < 9; i++)
+        for (int j = i + 1; j < 10; j++)
+            for (int k = 0; k < 10; k++)
+                if (matrix[i][k] > matrix[j][k])
+                    swap(matrix[i][k], matrix[j][k]);
+
+    cout << endl << "sort:" << endl;
+    Output(matrix);
+
 }
